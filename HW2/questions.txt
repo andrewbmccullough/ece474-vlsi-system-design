@@ -1,0 +1,92 @@
+a. Find the total area used by the alu. (report_area command)
+
+   Number of ports:                           60
+   Number of nets:                           192
+   Number of cells:                          139
+   Number of combinational cells:            137
+   Number of sequential cells:                 1
+   Number of macros/black boxes:               0
+   Number of buf/inv:                         21
+   Number of references:                      21
+
+   Combinational area:               1409.945013
+   Buf/Inv area:                      116.130004
+   Noncombinational area:               0.000000
+   Macro/Black Box area:                0.000000
+   Net Interconnect area:              70.892502
+
+   Total cell area:                  1409.945013
+   Total area:                       1480.837515
+
+   So the total area of the design is 1480.837515
+
+
+b. How many different types of cells (gates) were utilized : (report_hierarchy command)
+
+   alu
+   AND2X1                    saed90nm_typ
+   AND3X1                    saed90nm_typ
+   AO21X1                    saed90nm_typ
+   AO22X1                    saed90nm_typ
+   AO221X1                   saed90nm_typ
+   AO222X1                   saed90nm_typ
+   AOI22X1                   saed90nm_typ
+   AOI222X1                  saed90nm_typ
+   INVX0                     saed90nm_typ
+   MUX21X1                   saed90nm_typ
+   NAND2X0                   saed90nm_typ
+   NAND3X0                   saed90nm_typ
+   NOR2X0                    saed90nm_typ
+   NOR3X0                    saed90nm_typ
+   NOR4X0                    saed90nm_typ
+   OAI221X1                  saed90nm_typ
+   OR2X1                     saed90nm_typ
+   OR4X1                     saed90nm_typ
+   XNOR2X1                   saed90nm_typ
+   XOR2X1                    saed90nm_typ
+   alu_DW01_addsub_0
+   FADDX1                saed90nm_typ
+   XOR2X1                saed90nm_typ
+
+   The amount of different gates used is 21, with XOR2X1 being used twice.
+
+
+   c. Number of cells (gates).  This will require using the report_area command as well as looking at the cell library databook. It is located at: /nfs/guille/a1/cadlibs/synop_lib/SAED_EDK90nm/Digital_Standard_Cell_Library/doc/datbook Its is called SAED Digital Standard Cell Library_Rev1_4_20.  Its is a pdf file but has no .pdf on it. Search for the cell "NAND2X1" and record the area. (pg 34)  Divide the total area reported by design_vision by this number to get the gate equivalent count.
+
+   NAND2X1 is 5.5296 um2 and total area is 1480.837515. So 1480.837515/5.5296 = 267.8 so about 268 gates.
+
+
+   d. The synthesis tool will most likely introduce a hierarchical block to your design 
+   because it recognized something in your design. What is the block and what does it do? What style of implementation was chosen for this element? Hint: see report_hierarchy output
+
+   alu_DW01_addsub_0 was added. This was most likely an adder to do the arithmetic in the code.
+
+
+e. What was the maximum delay path through the alu and what were the beginning and endpoints for the max delay path?: (report_timing command)
+
+   input external delay                     0.00       0.00 r
+   opcode[1] (in)                           0.00       0.00 r
+   U240/Q (XOR2X1)                          0.14       0.14 r
+   U239/QN (INVX0)                          0.23       0.37 f
+   U238/QN (NAND3X0)                        0.31       0.68 r
+   U237/Q (MUX21X1)                         0.16       0.84 r
+   r31/A[0] (alu_DW01_addsub_0)             0.00       0.84 r
+   r31/U1_0/CO (FADDX1)                     0.15       0.99 r
+   r31/U1_1/CO (FADDX1)                     0.13       1.12 r
+   r31/U1_2/CO (FADDX1)                     0.13       1.25 r
+   r31/U1_3/CO (FADDX1)                     0.13       1.38 r
+   r31/U1_4/CO (FADDX1)                     0.13       1.52 r
+   r31/U1_5/CO (FADDX1)                     0.13       1.65 r
+   r31/U1_6/CO (FADDX1)                     0.13       1.78 r
+   r31/U1_7/S (FADDX1)                      0.20       1.98 f
+   r31/SUM[7] (alu_DW01_addsub_0)           0.00       1.98 f
+   U207/QN (AOI222X1)                       0.23       2.21 r
+   U209/QN (NAND2X0)                        0.08       2.29 f
+   U212/Q (OR4X1)                           0.14       2.43 f
+   U210/QN (NOR2X0)                         0.04       2.47 r
+   alu_zero (out)                           0.00       2.47 r
+   data arrival time                                   2.47
+
+
+   The beginning point is U240/Q (XOR2X1) and the endpoint is U210/QN (NOR2X0) and the delay was 2.47
+
